@@ -1,0 +1,94 @@
+/* styles.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative; /* Set position to relative to make ::before absolute */
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Black film overlay with 0.5 opacity */
+  z-index: -1; /* Place the overlay behind other elements */
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('weather.jpg') center/cover no-repeat;
+  z-index: -2;
+}
+
+form {
+  max-width: 400px;
+  margin: 20px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Slightly darker box shadow for better visibility */
+  border-radius: 10px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+h5 {
+  margin: 10px 0;
+  color: #555; /* Darker text color for better visibility */
+}
+
+input[type="text"],
+input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="text"][readonly] {
+  background-color: #f3f3f3;
+}
+
+#SubmitBtn {
+  background-color: #08424a;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#SubmitBtn:hover {
+  background-color: #1c3132;
+}
+
+#responsePanel {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  color: #333; /* Darker text color for better visibility */
+}

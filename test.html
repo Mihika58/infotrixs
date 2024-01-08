@@ -1,0 +1,87 @@
+<html lang="en-us">
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="minimum-scale=1.0" />
+
+    <script type="text/javascript">
+      const API_KEY = "439d4b804bc8187953eb36d2a8c26a02"; // Replace with your OpenWeatherMap API key
+      const unit = "metric";
+
+      function fetchWeatherData() {
+        let city = document.getElementById("cityInput").value;
+        let currentCityElement = document.getElementById("currentCity");
+        console.log(city);
+        let currentTemperatureElement =
+          document.getElementById("currentTemperature");
+        let url =
+          "https://openweathermap.org/data/2.5/find?q=" +
+          city +
+          "&appid=" +
+          API_KEY +
+          "&units=" +
+          unit;
+
+        //alert(url);
+        //console.log(url);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            document.getElementById("responsePanel").innerHTML =
+              "Data Found:: Success";
+            //debugger;
+            let kelvinTemp = JSON.parse(xhttp.responseText).list[0].main.temp;
+
+            const t = 273.15;
+
+            let celTemp = parseFloat(kelvinTemp) - parseFloat(t);
+
+            let name = JSON.parse(xhttp.responseText).list[0].name;
+
+            document.getElementById("currentCity").setAttribute("value", name);
+            document.getElementById("currentTemp").value = celTemp.toFixed(2);
+          } else {
+            document.getElementById("responsePanel").innerHTML =
+              "No Data Found";
+          }
+        };
+        xhttp.open("GET", url, false);
+        xhttp.send();
+
+        return false;
+      }
+    </script>
+  </head>
+
+  <body>
+    <form onsubmit="return fetchWeatherData()">
+      <h1> Weather App</h1>
+      <div>
+        <h5>Please enter City Name</h5>
+        <div><input type="text" id="cityInput" /></div>
+      </div>
+      <div>
+        <h5>Your Selected City Name</h5>
+        <div><input type="text" id="currentCity" value="" readonly /></div>
+      </div>
+      <br />
+      <div>
+        <h5>Selected City Temp in Celcius</h5>
+        <div><input type="text" id="currentTemp" value="" readonly /></div>
+      </div>
+      <br />
+      <div>
+        <h5>Click on Submit</h5>
+        <div>
+          <input type="submit" id="SubmitBtn" value="Get Info" />
+        </div>
+      </div>
+
+      <div>
+        <h4>Response Data</h4>
+        <div id="responsePanel"></div>
+      </div>
+    </form>
+  </body>
+</html>
